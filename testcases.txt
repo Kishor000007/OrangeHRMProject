@@ -1,0 +1,75 @@
+1)Automating Login testcase
+1.1: Create LoginPage Object class under 'pageObjects'
+1.2: Create LoginTest under 'Testcases'
+1.3: create confTest.py under 'Testcases'
+
+2)Capture screenshot on failures
+2.1: Update Login Test with Screenshot under 'testcases'
+
+3)Read common values from ini file
+3.1: Add 'config.ini' file in 'Configurations' folder
+3.2: Create 'readProperties.py' utility file under utilities package to read common data
+3.3: Replace hard coded values in Login testcase
+
+4)Adding logs to test case
+4.1: Add customLogger.py under utilities package
+4.2: Add logs to Login test case
+
+5)Run tests on desired browser/cross browser/parallel
+5.1: update conftest.py with required fixtures which will accept command line argument(browser)
+5.2: pass browser name as argument in command line
+
+To run tests on desired browser
+pytest -s -v Testcases/test_login.py --browser chrome
+pytest -s -v Testcases/test_login.py --browser firefox
+
+To run tests parallel
+pytest -s -v -n=3 Testcases/test_login.py --browser chrome   #max we can specify -n=3 if we pass 4 or above the browser will be slower and starts lagging
+pytest -s -v -n=3 Testcases/test_login.py --browser firefox
+
+6)Generate pytest HTML reports
+6.1: Update conftest.py with pytest hooks
+6.2: To generate html report run below command:
+
+pytest -s -v -n=3 --html=Reports\report.html Testcases/test_login.py --browser chrome
+
+7)Automating datadriven testcase
+7.1: Prepare the testdata in excel sheet, place the excel file inside the TestData folder.
+7.2: Create ExcelUtils.py file under Utilities package
+7.3: Create LoginDataDriventest under Testcases.
+7.4: Run the test case
+
+8)Adding new testcases
+
+9)Grouping Tests
+9.1: Grouping markers(Add markers to every test method)
+      @pytest.mark.sanity
+      @pytest.mark.regression
+
+9.2:Add marker entries in pytest.ini file
+[pytest]
+markers=
+   sanity
+   regression
+
+9.3:Select groups at run time
+-m "sanity"
+-m "regression"
+-m "sanity and regression"
+-m "sanity or regression"
+
+Run command:
+pytest -s -v -m "sanity or regression" --html=Reports\report.html Testcases --browser chrome
+
+10)Run tests in Command prompt and run.bat file
+10.1:Create run.bat file
+pytest -s -v -m "sanity" --html=Reports\report.html Testcases --browser chrome
+
+10.2: open command prompt as Administrator and then run run.bat file
+
+11)Push the code to Git&GitHub Repository
+
+
+
+
+
